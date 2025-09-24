@@ -6,7 +6,7 @@ def merge_files(input_filename, merge_filename, output_filename):
 
     with open(output_filename, 'w') as outfile, open(input_filename, 'r') as infile:
         for line in infile:
-            if not merge_inserted and '**Insert Merge File Here**' in line:
+            if not merge_inserted :
                 # Write the line containing the marker
                 outfile.write(line)
                 output_records += 1
