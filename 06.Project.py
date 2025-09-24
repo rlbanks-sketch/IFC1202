@@ -1,37 +1,36 @@
-def merge_files(input_filename, merge_filename, output_filename):
-    input_records = 0
-    merge_records = 0
-    output_records = 0
-    merge_inserted = False
+def merge_files():
+    input_filename = "06.Project Input File.txt"
+    merge_filename = "06.Project Merge File.txt"
+    output_filename = "06.Project Output File.txt"
 
-    with open(output_filename, 'w') as outfile, open(input_filename, 'r') as infile:
-        for line in infile:
-            if not merge_inserted :
-                # Write the line containing the marker
-                outfile.write(line)
-                output_records += 1
+    input_count = 0
+    merge_count = 0
+    output_count = 0
 
-                # Insert contents of merge file here
-                with open(merge_filename, 'r') as mergefile:
-                    for merge_line in mergefile:
-                        outfile.write(merge_line)
-                        merge_records += 1
-                        output_records += 1
-                merge_inserted = True
-            else:
-                # Just copy line from input to output
-                outfile.write(line)
-                input_records += 1
-                output_records += 1
+    # Open output file for writing
+    with open(output_filename, 'w') as outfile:
+        # Open input file for reading
+        with open(input_filename, 'r') as infile:
+            for line in infile:
+                stripped_line = line.rstrip('\n')
+                if stripped_line == "**Insert Merge File Here**":
+                    # Instead of writing the marker, we read and write merge file contents
+                    with open(merge_filename, 'r') as mergefile:
+                        for mline in mergefile:
+                            outfile.write(mline)
+                            merge_count +=1
+                            output_count +=1
+                    # Do not write the marker line itself
+                    continue
+                else:
+                    outfile.write(line)
+                    input_count +=1
+                    output_count +=1
 
-    print(f"Number of records in input file: {input_records}")
-    print(f"Number of records in merge file: {merge_records}")
-    print(f"Number of records in output file: {output_records}")
+    print(f"{input_count} input file records")
+    print(f"{merge_count} merge file records")
+    print(f"{output_count} output file records")
 
 
-# File names as per your request
-input_file = "06.Project Input File.txt"
-merge_file = "06.Project Merge File.txt"
-output_file = "06.Project Output File.txt"
-
-merge_files(input_file, merge_file, output_file)
+if __name__ == "__main__":
+    merge_files()
