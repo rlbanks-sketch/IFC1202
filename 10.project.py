@@ -56,8 +56,8 @@ def main():
             student = Student(firstname, lastname, tnumber, scores)
 
             print(f"Student: {student.FirstName} {student.LastName} ({student.TNumber})")
-            print(f"  Running Average (non-blank): {student.RunningAverage():.2f}")
-            print(f"  Total Average (blank=0): {student.TotalAverage():.2f}")
+            print(f"  Running Average: {student.RunningAverage():.2f}")
+            print(f"  Total Average: {student.TotalAverage():.2f}")
             print(f"  Letter Grade: {student.LetterGrade()}")
             print()
 
