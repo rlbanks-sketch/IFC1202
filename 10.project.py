@@ -1,3 +1,5 @@
+from tabulate import tabulate
+
 class Student:
     def __init__(self, firstname, lastname, tnumber, scores):
         self.FirstName = firstname
@@ -6,7 +8,6 @@ class Student:
         self.Grades = scores  # list of strings
 
     def RunningAverage(self):
-        # Calculate average ignoring blank scores
         numeric_scores = [float(score) for score in self.Grades if score.strip() != '']
         if numeric_scores:
             return sum(numeric_scores) / len(numeric_scores)
@@ -14,7 +15,6 @@ class Student:
             return 0.0
 
     def TotalAverage(self):
-        # Treat blank scores as zero
         total_scores = []
         for score in self.Grades:
             if score.strip() == '':
@@ -42,6 +42,7 @@ class Student:
 
 def main():
     filename = "10.Project Student Scores.txt"
+    students = []
     with open(filename, 'r') as file:
         for line in file:
             line = line.strip()
@@ -54,12 +55,22 @@ def main():
             firstname, lastname, tnumber = parts[:3]
             scores = parts[3:]
             student = Student(firstname, lastname, tnumber, scores)
+            students.append(student)
 
-            print(f"Student: {student.FirstName} {student.LastName} ({student.TNumber})")
-            print(f"  Running Average: {student.RunningAverage():.2f}")
-            print(f"  Total Average: {student.TotalAverage():.2f}")
-            print(f"  Letter Grade: {student.LetterGrade()}")
-            print()
+    # Prepare data for tabulate
+    table = []
+    for s in students:
+        table.append([
+            s.FirstName,
+            s.LastName,
+            s.TNumber,
+            f"{s.RunningAverage():.2f}",
+            f"{s.TotalAverage():.2f}",
+            s.LetterGrade()
+        ])
+
+    headers = ["First Name", "Last Name", "TNumber", "Running Average", "Total Average", "Letter Grade"]
+    print(tabulate(table, headers=headers, tablefmt="grid"))
 
 
 if __name__ == "__main__":
