@@ -41,7 +41,7 @@ class Student:
 
 
 def main():
-    filename = "StudentScores.txt"
+    filename = "10.Project Student Scores.txt"
     with open(filename, 'r') as file:
         for line in file:
             line = line.strip()
