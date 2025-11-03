@@ -8,14 +8,14 @@ class Student:
         self.Grades = scores  # list of string scores, may contain blanks
 
     def RunningAverage(self) -> float:
-        # Calculate average of non-blank scores
+        # Calculate average of scores
         non_blank_scores = [float(score) for score in self.Grades if score.strip() != '']
         if len(non_blank_scores) == 0:
             return 0.0
         return sum(non_blank_scores) / len(non_blank_scores)
 
     def TotalAverage(self) -> float:
-        # Treat missing (blank) scores as zero
+        # (blank) scores as zero
         scores_with_zero = [float(score) if score.strip() != '' else 0.0 for score in self.Grades]
         if len(scores_with_zero) == 0:
             return 0.0
@@ -37,14 +37,14 @@ class Student:
 def main():
     students = []
     try:
-        with open('StudentScores.txt', 'r') as file:
+        with open('10.Project Student Scores.txt', 'r') as file:
             for line in file:
                 line = line.strip()
                 if not line:
                     continue
                 parts = line.split(',')
                 if len(parts) < 3:
-                    # Skip malformed lines
+                    
                     continue
                 firstname, lastname, tnumber = parts[:3]
                 scores = parts[3:]  # Remaining are scores, may be empty strings
@@ -52,7 +52,7 @@ def main():
                 student = Student(firstname, lastname, tnumber, scores)
                 students.append(student)
     except FileNotFoundError:
-        print("Error: 'StudentScores.txt' not found.")
+        print("Error: '10.Project Student Scores.txt' not found.")
         return
 
     # Print header
