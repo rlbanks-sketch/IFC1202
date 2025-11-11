@@ -55,13 +55,14 @@ class StudentList:
         return -1
 
     def print_student_list(self):
+        # Print headers with alignment like example output
+        print("       First         Last           ID      Running     Semester       Letter")
+        print("        Name         Name       Number      Average      Average        Grade")
+        print("------------ ------------ ------------ ------------ ------------ ------------")
         for student in self.Studentlist:
-            print(f"TNumber: {student.TNumber}, Name: {student.FirstName} {student.LastName}")
-            print(f"  Grades: {student.Grades}")
-            print(f"  Running Average: {student.RunningAverage():.2f}")
-            print(f"  Total Average: {student.TotalAverage():.2f}")
-            print(f"  Letter Grade: {student.LetterGrade()}")
-            print("")
+            print(f"{student.FirstName:>12} {student.LastName:>12} {student.TNumber:>12} "
+                  f"{student.RunningAverage():>12.2f} {student.TotalAverage():>12.2f} "
+                  f"{student.LetterGrade():>12}")
 
     def add_student_from_file(self, filename: str):
         """
@@ -102,7 +103,7 @@ class StudentList:
                     # append grades to student
                     self.Studentlist[idx].Grades.extend(grades)
                 else:
-                    # student not found - could ignore or optionally handle
+                    # student not found - ignore
                     pass
 
 def main():
